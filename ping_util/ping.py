@@ -27,7 +27,7 @@ def host_name_ping(host_path_file):
 
          param = '-n'
 
-         command = ['ping',param,'3',line]
+         command = ['ping',param,'2',line]
 
          if subprocess.call(command)==0:
              successful.append(line)
@@ -51,7 +51,7 @@ def host_name_ping(host_path_file):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--path', help=r"Enter argument --path as follows --path C:\Users\exzo103\\")
+    parser.add_argument('--path', help=r"Enter argument --path as follows --path C:\Users\\")
     args = parser.parse_args()
     if not os.path.exists(args.path):
         os.makedirs(args.path)
