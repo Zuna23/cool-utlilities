@@ -1,1 +1,1 @@
-python ping.py --path C:\Repos\cool-utlilities\ping_util\hosts.txt
+python ping.py --path path\hosts.txt

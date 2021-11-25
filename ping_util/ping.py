@@ -1,7 +1,6 @@
 import sys
 import os
 import subprocess
-import pandas as pd
 import csv
 import argparse
 
