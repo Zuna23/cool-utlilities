@@ -3,12 +3,12 @@ import os
 import subprocess
 import pandas as pd
 import csv
+import argparse
 
 
-def Host_Name_Ping(host_path_file):
+def host_name_ping(host_path_file):
 
      #empty arrays which we will convert to dictionaries later
-
      successful = []
      unsuccessful =[]
 
@@ -37,7 +37,7 @@ def Host_Name_Ping(host_path_file):
          csv_columns = ['Successful','Unsuccessful','Success_Count','Fail_Count']
          dict_data = [{'Successful':successful,'Unsuccessful':unsuccessful,'Success_Count':len(successful),'Fail_Count':len(unsuccessful)}]
          
-         csv_file = "Hosts_results.csv"
+         csv_file = "hosts_results.csv"
          try:
                with open(csv_file, 'w',newline='') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
@@ -48,4 +48,20 @@ def Host_Name_Ping(host_path_file):
             print("I/O error")
 
 
-Host_Name_Ping("C:\\Users\\T440P\\Documents\\Hosts.txt")          
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--path', help=r"Enter argument --path as follows --path C:\Users\exzo103\\")
+    args = parser.parse_args()
+    if not os.path.exists(args.path):
+        os.makedirs(args.path)
+        host_name_ping(args.path)
+      
+    elif os.path.exists(args.path):
+        host_name_ping(args.path)
+    
+
+
+if __name__ == '__main__':
+    main()
+
