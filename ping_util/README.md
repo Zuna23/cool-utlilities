@@ -1,2 +1,1 @@
-# cool-utlilities
-purpose of this is to have fun scripts that can be used anywhere
+python ping.py --path C:\Repos\cool-utlilities\ping_util\hosts.txt
