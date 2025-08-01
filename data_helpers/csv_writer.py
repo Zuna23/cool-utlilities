@@ -1,25 +1,24 @@
 import json
 import csv
+from pathlib import Path
 
-# Step 1: Import the necessary modules
+def json_to_csv(json_path, csv_path):
+    with open(json_path, 'r', encoding='utf-8') as json_file:
+        data = json.load(json_file)
 
-# Step 2: Open and parse the JSON file
-with open('data.json', 'r') as json_file:
-    data = json.load(json_file)
+    if not data:
+        raise ValueError("JSON file is empty.")
 
-# Step 3: Create or open a CSV file and set up a csv.DictWriter object
-with open('data.csv', 'w', newline='') as csv_file:
-    # Define the CSV headers based on the JSON keys
     fieldnames = list(data[0].keys())
-    
-    # Create a DictWriter object
-    csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-    
-    # Write the CSV headers
-    csv_writer.writeheader()
-    
-    # Step 4: Write the JSON data to the CSV file
-    for row in data:
-        csv_writer.writerow(row)
 
-print("CSV file has been created successfully.")
+    with open(csv_path, 'w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data)
+
+    print(f"CSV file '{csv_path}' has been created successfully.")
+
+if __name__ == "__main__":
+    json_file = Path('data.json')
+    csv_file = Path('data.csv')
+    json_to_csv(json_file, csv_file)

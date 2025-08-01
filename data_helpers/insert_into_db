@@ -1,0 +1,28 @@
+import csv
+import pyodbc
+
+def insert_csv_to_mssql(csv_file_path, server, database, username, password, table_name):
+    conn_str = (
+        f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+        f"SERVER={server};"
+        f"DATABASE={database};"
+        f"UID={username};"
+        f"PWD={password}"
+    )
+    conn = pyodbc.connect(conn_str)
+    cursor = conn.cursor()
+
+    with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
+        reader = csv.reader(csvfile)
+        headers = next(reader)
+        placeholders = ','.join(['?'] * len(headers))
+        insert_sql = f'INSERT INTO {table_name} ({",".join(headers)}) VALUES ({placeholders})'
+
+        for row in reader:
+            cursor.execute(insert_sql, row)
+
+    conn.commit()
+    conn.close()
+
+# Example usage:
+# insert_csv_to_mssql('data.csv', 'localhost', 'mydatabase', 'username', 'password', 'mytable')
