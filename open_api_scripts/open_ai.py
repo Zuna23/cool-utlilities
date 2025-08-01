@@ -1,6 +1,9 @@
 import os
 import openai
-openai.api_key = os.getenv("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")
+import boto3
+ssm = boto3.client('ssm')
+parameter = ssm.get_parameter(Name='/openai/api_key', WithDecryption=True)
+openai.api_key = parameter['Parameter']['Value']
 openai.Model.list()
 
 
