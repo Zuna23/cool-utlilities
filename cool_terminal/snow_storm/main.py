@@ -1,6 +1,6 @@
 import os,random,time
 
-SNOW_DENSITY = 2
+SNOW_DENSITY = 5
 DELAY = .2
 
 snow_flakes = ['❄️','❅','❉','❃','❋','*','❊','☃️']
